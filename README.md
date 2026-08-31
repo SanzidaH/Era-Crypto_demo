@@ -113,6 +113,12 @@ The bring-up script starts the 5G core, the RIC, and the GNU Radio broker in the
 **Expected result** - the terminal reports `CORE + RIC + BROKER UP`.
 **Recovery** - if a component is absent, `docker ps` identifies which; the script may be re-run.
 
+Core (Open5GS / AMF) output:
+```
+cd ~/ocudu/docker
+docker compose logs 5gc 2>&1 | grep -iE "ng.?setup|gNB-N2 accepted|Number of gNBs|Registration complete"
+```
+
 ### 8.2 gNB
 
 The gNB is started in its own foreground terminal. Backgrounding it has previously masked a degraded startup, so it is never backgrounded.
@@ -121,6 +127,12 @@ The gNB is started in its own foreground terminal. Backgrounding it has previous
 ```
 cd ~/ocudu/build_e2/apps/gnb && sudo ./gnb -c ~/configs/gnb_ocudu_zmq_pi_ric.yaml
 ```
+With logs:
+
+```
+sudo ./gnb -c ~/configs/gnb_ocudu_zmq_pi_ric.yaml 2>&1 | tee ~/era_run_logs/gnb.log
+```
+
 **Expected result** - the log reports `N2: Connection to AMF ... completed` and `==== gNB started ====`.
 **Recovery** - on a partial start, `sudo pkill -9 gnb` clears it, after which it is relaunched in the foreground.
 
