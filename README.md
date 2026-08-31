@@ -1,4 +1,4 @@
-# ERA-Crypto — Live Demonstration Manual
+# ERA-Crypto - Live Demonstration Manual
 
 **Document type:** Presentation reference manual
 **Scenario:** Adaptive operation with RIC (dual-axis)
@@ -23,12 +23,12 @@ The reader is a presenter or operator familiar with the testbed at a working lev
 
 The following conventions are used throughout.
 
-- **Command** — a block to be executed on the terminal identified by its tag (see Section 6). Commands are reproduced verbatim; no field is a placeholder.
-- **Expected result** — the output that confirms the step completed correctly.
-- **Recovery** — the corrective action to apply when the expected result does not appear.
-- **Note** — supporting information.
-- **Caution** — information whose omission may compromise the demonstration.
-- **Talking point** — suggested narration for the audience. Talking points are advisory; the wording may be adapted freely.
+- **Command** - a block to be executed on the terminal identified by its tag (see Section 6). Commands are reproduced verbatim; no field is a placeholder.
+- **Expected result** - the output that confirms the step completed correctly.
+- **Recovery** - the corrective action to apply when the expected result does not appear.
+- **Note** - supporting information.
+- **Caution** - information whose omission may compromise the demonstration.
+- **Talking point** - suggested narration for the audience. Talking points are advisory; the wording may be adapted freely.
 
 Terminal tags take the form of a letter and number. **V** denotes a terminal on the core VM, **S** a terminal on the server Raspberry Pi (ue1), and **C** a terminal on the client Raspberry Pi (ue2).
 
@@ -110,8 +110,8 @@ The bring-up script starts the 5G core, the RIC, and the GNU Radio broker in the
 ```
 ./vm_up.sh
 ```
-**Expected result** — the terminal reports `CORE + RIC + BROKER UP`.
-**Recovery** — if a component is absent, `docker ps` identifies which; the script may be re-run.
+**Expected result** - the terminal reports `CORE + RIC + BROKER UP`.
+**Recovery** - if a component is absent, `docker ps` identifies which; the script may be re-run.
 
 ### 8.2 gNB
 
@@ -121,8 +121,8 @@ The gNB is started in its own foreground terminal. Backgrounding it has previous
 ```
 cd ~/ocudu/build_e2/apps/gnb && sudo ./gnb -c ~/configs/gnb_ocudu_zmq_pi_ric.yaml
 ```
-**Expected result** — the log reports `N2: Connection to AMF ... completed` and `==== gNB started ====`.
-**Recovery** — on a partial start, `sudo pkill -9 gnb` clears it, after which it is relaunched in the foreground.
+**Expected result** - the log reports `N2: Connection to AMF ... completed` and `==== gNB started ====`.
+**Recovery** - on a partial start, `sudo pkill -9 gnb` clears it, after which it is relaunched in the foreground.
 
 ### 8.3 Server attachment (ue1)
 
@@ -130,9 +130,9 @@ cd ~/ocudu/build_e2/apps/gnb && sudo ./gnb -c ~/configs/gnb_ocudu_zmq_pi_ric.yam
 ```
 cd ~ ; ./pi_cleanup.sh ue1 ; ./pi_attach.sh ue1
 ```
-**Expected result** — `RRC Connected`, followed by IP `10.45.1.2`. The address is confirmed with `sudo ip netns exec ue1 ip addr show tun_srsue | grep 10.45`.
-**Note** — ICMP is filtered on this stack; reachability is confirmed by a successful handshake, not by ping.
-**Recovery** — the cleanup and attach commands are re-run.
+**Expected result** - `RRC Connected`, followed by IP `10.45.1.2`. The address is confirmed with `sudo ip netns exec ue1 ip addr show tun_srsue | grep 10.45`.
+**Note** - ICMP is filtered on this stack; reachability is confirmed by a successful handshake, not by ping.
+**Recovery** - the cleanup and attach commands are re-run.
 
 ### 8.4 Client attachment (ue2)
 
@@ -140,10 +140,10 @@ cd ~ ; ./pi_cleanup.sh ue1 ; ./pi_attach.sh ue1
 ```
 cd ~ ; ./pi_cleanup.sh ue2 ; ./pi_attach.sh ue2
 ```
-**Expected result** — `RRC Connected`, IP `10.45.1.3`.
-**Recovery** — as in Section 8.3, substituting `ue2`.
+**Expected result** - `RRC Connected`, IP `10.45.1.3`.
+**Recovery** - as in Section 8.3, substituting `ue2`.
 
-**Note** — an optional second client is attached on ue3 (`./pi_cleanup.sh ue3 ; ./pi_attach.sh ue3`, address `10.45.1.4`).
+**Note** - an optional second client is attached on ue3 (`./pi_cleanup.sh ue3 ; ./pi_attach.sh ue3`, address `10.45.1.4`).
 
 ### 8.5 RIC feed
 
@@ -153,8 +153,8 @@ The feed is the most delicate component and is therefore brought up after the RA
 ```
 ~/start_feed.sh
 ```
-**Expected result** — `[csv] {...}` lines appear approximately once per second with continuous timestamps.
-**Recovery** — if the address is busy or no lines appear:
+**Expected result** - `[csv] {...}` lines appear approximately once per second with continuous timestamps.
+**Recovery** - if the address is busy or no lines appear:
 ```
 cd ~/oran-sc-ric && docker compose restart python_xapp_runner && sleep 5
 ~/start_feed.sh
@@ -167,8 +167,8 @@ cd ~/oran-sc-ric && docker compose restart python_xapp_runner && sleep 5
 : > ~/era_audit.log
 python3 ~/decision.py
 ```
-**Expected result** — `[PASS] envelope OK ...` and `[PASS] listening on 0.0.0.0:8080  NO_RIC=False`.
-**Recovery** — on `address already in use`, `pkill -f decision.py` clears the port before re-running.
+**Expected result** - `[PASS] envelope OK ...` and `[PASS] listening on 0.0.0.0:8080  NO_RIC=False`.
+**Recovery** - on `address already in use`, `pkill -f decision.py` clears the port before re-running.
 
 ### 8.7 Audit-log display
 
@@ -184,7 +184,7 @@ This terminal is the one presented to the audience; its font is enlarged.
 ```
 ./verify_vm.sh
 ```
-**Expected result** — all checks pass, including `RAN feed fresh` and `downgrade prevented`. V1 is left free after this step for reuse in Section 12.
+**Expected result** - all checks pass, including `RAN feed fresh` and `downgrade prevented`. V1 is left free after this step for reuse in Section 12.
 
 ### 8.9 TLS servers
 
@@ -192,7 +192,7 @@ This terminal is the one presented to the audience; its font is enlarged.
 ```
 cd ~ ; ./ue1_servers.sh
 ```
-**Expected result** — `[PASS] falcon512:4433` and `[PASS] mldsa44:4434`.
+**Expected result** - `[PASS] falcon512:4433` and `[PASS] mldsa44:4434`.
 
 ### 8.10 Agent and measured workload
 
@@ -204,8 +204,8 @@ sleep 3
 cat /tmp/current_kem /tmp/current_sig
 sudo ./pqc_bench.sh ue2 ue2 10.45.1.2 300 adapt
 ```
-**Expected result** — the `cat` reports a KEM and a signature (for example `mlkem1024` and `mldsa44`); the bench then begins handshaking.
-**Recovery** — if the battery reads `0%` or the `cat` output is empty, the battery state file is reset and the agent restarted:
+**Expected result** - the `cat` reports a KEM and a signature (for example `mlkem1024` and `mldsa44`); the bench then begins handshaking.
+**Recovery** - if the battery reads `0%` or the `cat` output is empty, the battery state file is reset and the agent restarted:
 ```
 rm -f /tmp/vbattery.json
 pkill -f agent.sh ; ./agent.sh ue2 & ; sleep 3 ; cat /tmp/current_kem /tmp/current_sig
@@ -221,13 +221,13 @@ At the opening of the presentation, the live and physical nature of the testbed 
 - The client's RAN address is displayed: `sudo ip netns exec ue2 ip addr show tun_srsue | grep 10.45`, confirming a physical Raspberry Pi holding a real subscriber address rather than a loopback.
 - The feed (V3) shows telemetry lines arriving continuously, evidencing live KPM measurement from the RIC.
 
-**Talking point** — "The gNB, core, and RIC are real; the UEs are physical devices on the RAN; the network state shown here is measured, not scripted."
+**Talking point** - "The gNB, core, and RIC are real; the UEs are physical devices on the RAN; the network state shown here is measured, not scripted."
 
 ## 10. Verifying Post-Quantum Operation on the Wire
 
 This section evidences that the handshake carries post-quantum material rather than a labelled record only.
 
-**Caution** — In TLS 1.3 the KEM key exchange is transmitted in the clear, so packet capture genuinely exhibits the ML-KEM public key. The signature, by contrast, is encrypted within the handshake and cannot be identified from a capture. The endpoint output in Section 10.2 is therefore the authoritative source for the signature. Presenting this distinction accurately is expected of the presenter.
+**Caution** - In TLS 1.3 the KEM key exchange is transmitted in the clear, so packet capture genuinely exhibits the ML-KEM public key. The signature, by contrast, is encrypted within the handshake and cannot be identified from a capture. The endpoint output in Section 10.2 is therefore the authoritative source for the signature. Presenting this distinction accurately is expected of the presenter.
 
 ### 10.1 Observing the handshake in transit
 
@@ -235,8 +235,8 @@ This section evidences that the handshake carries post-quantum material rather t
 ```
 sudo ip netns exec ue2 tcpdump -i tun_srsue -n -c 30 'tcp port 4433 or tcp port 4434'
 ```
-**Expected result** — a burst of TLS records in which the handshake packets are conspicuously large.
-**Talking point** — "The oversized handshake records are the ML-KEM key material; a classical exchange would be a fraction of this size."
+**Expected result** - a burst of TLS records in which the handshake packets are conspicuously large.
+**Talking point** - "The oversized handshake records are the ML-KEM key material; a classical exchange would be a fraction of this size."
 
 ### 10.2 Identifying the primitives at the endpoint
 
@@ -246,8 +246,8 @@ cd ~/Downloads/boringssl/build
 sudo ip netns exec ue2 ./tool/bssl client -curves mlkem768 -sigalgs falcon512 \
   -connect 10.45.1.2:4433 </dev/null | grep -iE "ECDHE group|Signature"
 ```
-**Expected result** — `ECDHE group: mlkem768` and `Signature algorithm: falcon512`.
-**Talking point** — "Key exchange and signature, both post-quantum, confirmed at the endpoint."
+**Expected result** - `ECDHE group: mlkem768` and `Signature algorithm: falcon512`.
+**Talking point** - "Key exchange and signature, both post-quantum, confirmed at the endpoint."
 
 ### 10.3 Capturing to file (optional)
 
@@ -259,7 +259,7 @@ sudo ip netns exec ue2 tcpdump -i tun_srsue -w ~/demo_pqc.pcap 'tcp port 4433 or
 # a single handshake is run (Section 10.2), after which:
 sudo pkill -9 tcpdump
 ```
-**Recovery** — a permission or namespace error indicates the `sudo ip netns exec ue2` prefix or the `tun_srsue` interface name is missing.
+**Recovery** - a permission or namespace error indicates the `sudo ip netns exec ue2` prefix or the `tun_srsue` interface name is missing.
 
 ## 11. Demonstrating Adaptive Behaviour
 
@@ -273,15 +273,15 @@ Adjusting the reported battery level changes the input consumed by the agent; be
 ```
 python3 ~/set_battery.py 15
 ```
-**Expected result** — within a few handshakes, the signature changes on the display.
-**Talking point** — "As the battery falls, the signature de-escalates automatically."
+**Expected result** - within a few handshakes, the signature changes on the display.
+**Talking point** - "As the battery falls, the signature de-escalates automatically."
 
 The level is then restored:
 ```
 python3 ~/set_battery.py 90
 ```
-**Expected result** — the signature returns to the stronger scheme. The transition may be repeated for emphasis.
-**Recovery** — if the signature does not respond, the battery state is reset and the agent restarted:
+**Expected result** - the signature returns to the stronger scheme. The transition may be repeated for emphasis.
+**Recovery** - if the signature does not respond, the battery state is reset and the agent restarted:
 ```
 rm -f /tmp/vbattery.json ; pkill -f agent.sh ; ./agent.sh ue2 & ; sleep 3
 python3 ~/set_battery.py 15
@@ -295,10 +295,10 @@ Increasing RAN throughput causes the decision service to select the stronger KEM
 ```
 sudo ip netns exec ue2 iperf3 -c 10.45.1.2 -t 120 -R -b 500K
 ```
-**Expected result** — as throughput rises, the KEM changes on the display; ending the load returns it.
-**Talking point** — "As network throughput rises, the key exchange steps up to the stronger parameter set."
+**Expected result** - as throughput rises, the KEM changes on the display; ending the load returns it.
+**Talking point** - "As network throughput rises, the key exchange steps up to the stronger parameter set."
 
-**Caution** — the emulated link reports approximately zero throughput for control traffic under TS 28.552, so injected load may not move the KEM on screen. Where the axis does not respond within a short interval, the controlled `ran_log.csv` throughput-injection method is used instead. The chosen method is rehearsed in advance; it is not selected during the session.
+**Caution** - the emulated link reports approximately zero throughput for control traffic under TS 28.552, so injected load may not move the KEM on screen. Where the axis does not respond within a short interval, the controlled `ran_log.csv` throughput-injection method is used instead. The chosen method is rehearsed in advance; it is not selected during the session.
 
 ## 12. Demonstrating the Security Floor
 
@@ -309,8 +309,8 @@ A single request evidences that classical cryptography cannot be reached.
 curl -s -X POST http://192.168.0.4:8080/decide -H 'Content-Type: application/json' \
   -d '{"ue":"t","battery_pct":90,"force_group":"X25519","force_sig":"ecdsa"}'
 ```
-**Expected result** — the KEM remains post-quantum and the response contains `"sig_reason":"reject(ecdsa):outside-envelope"`; with a fresh feed it also contains `"kem_reason":"reject(X25519):outside-envelope"`.
-**Talking point** — "Even an explicit demand for classical cryptography is rejected. The system is adaptive, but never below the post-quantum boundary."
+**Expected result** - the KEM remains post-quantum and the response contains `"sig_reason":"reject(ecdsa):outside-envelope"`; with a fresh feed it also contains `"kem_reason":"reject(X25519):outside-envelope"`.
+**Talking point** - "Even an explicit demand for classical cryptography is rejected. The system is adaptive, but never below the post-quantum boundary."
 
 ## 13. Shutdown Procedure
 
@@ -327,7 +327,7 @@ sudo pkill -9 bssl ; pkill -9 -f agent.sh ; pkill -9 -f pqc_bench ; sudo pkill -
 
 ---
 
-## Appendix A — Recovery Reference
+## Appendix A - Recovery Reference
 
 | Condition | Corrective action |
 |-----------|-------------------|
@@ -342,18 +342,18 @@ sudo pkill -9 bssl ; pkill -9 -f agent.sh ; pkill -9 -f pqc_bench ; sudo pkill -
 
 `net.sctp.auth_enable=0` is maintained on every machine throughout.
 
-## Appendix B — Anticipated Questions
+## Appendix B - Anticipated Questions
 
 - **Whether the network is real or simulated.** The gNB, core, and RIC are real; the radio is a ZMQ SDR emulation; the UEs are physical Raspberry Pi 5 devices attached to the RAN.
-- **Whether the KEM throughput is real load.** The method in use — physical load or controlled injection — is stated plainly. The emulated control-plane link reports approximately zero throughput under TS 28.552, so the KEM axis is driven by a controlled throughput signal; the battery axis and the floor rejection are exercised live.
+- **Whether the KEM throughput is real load.** The method in use - physical load or controlled injection - is stated plainly. The emulated control-plane link reports approximately zero throughput under TS 28.552, so the KEM axis is driven by a controlled throughput signal; the battery axis and the floor rejection are exercised live.
 - **How post-quantum operation is evidenced.** Section 10: the ML-KEM key material is visible and oversized in capture, and the endpoint output identifies both primitives.
 - **What prevents a downgrade.** Section 12: the envelope rejects classical requests structurally rather than as a configurable preference.
 - **Why RAN-plane latency or energy appears unusual.** The throttled emulated link dominates; handshake computation is negligible against it. This is treated explicitly in the paper.
 
-## Appendix C — Suggested Narrative Sequence
+## Appendix C - Suggested Narrative Sequence
 
 1. On the audit-log display: "Two inputs, two cryptographic axes, one hard floor."
 2. Battery axis (Section 11.1): "As the battery falls the signature de-escalates; as it recovers it escalates again."
 3. KEM axis (Section 11.2): "As throughput rises the key exchange steps up to the stronger set."
 4. Wire verification (Section 10): "The post-quantum key material is visible in transit, and both primitives are confirmed at the endpoint."
-5. Security floor (Section 12): "An explicit request for classical cryptography is rejected — adaptive, but never below post-quantum."
+5. Security floor (Section 12): "An explicit request for classical cryptography is rejected - adaptive, but never below post-quantum."
