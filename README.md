@@ -354,7 +354,7 @@ sudo pkill -9 bssl ; pkill -9 -f agent.sh ; pkill -9 -f pqc_bench ; sudo pkill -
 
 `net.sctp.auth_enable=0` is maintained on every machine throughout.
 
-## Appendix B - Anticipated Questions
+## Appendix B -  Some FAQ
 
 - **Whether the network is real or simulated.** The gNB, core, and RIC are real; the radio is a ZMQ SDR emulation; the UEs are physical Raspberry Pi 5 devices attached to the RAN.
 - **Whether the KEM throughput is real load.** The method in use - physical load or controlled injection - is stated plainly. The emulated control-plane link reports approximately zero throughput under TS 28.552, so the KEM axis is driven by a controlled throughput signal; the battery axis and the floor rejection are exercised live.
@@ -362,7 +362,7 @@ sudo pkill -9 bssl ; pkill -9 -f agent.sh ; pkill -9 -f pqc_bench ; sudo pkill -
 - **What prevents a downgrade.** Section 12: the envelope rejects classical requests structurally rather than as a configurable preference.
 - **Why RAN-plane latency or energy appears unusual.** The throttled emulated link dominates; handshake computation is negligible against it. This is treated explicitly in the paper.
 
-## Appendix C - Suggested Narrative Sequence
+## Appendix C - Summary
 
 1. On the audit-log display: "Two inputs, two cryptographic axes, one hard floor."
 2. Battery axis (Section 11.1): "As the battery falls the signature de-escalates; as it recovers it escalates again."
